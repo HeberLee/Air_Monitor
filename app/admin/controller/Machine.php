@@ -29,17 +29,17 @@ class Machine extends Controller
         ]);
     }
 
-    public function edit($id){
-    	if(intval($id) < 1){
-    		$this->error('参数不合法');
-    	}
-    	$machine = $this->obj->get($id);
-    	$machines = $this->obj->getNormalFirstmachines();
-        return $this->fetch('',[
-        	'machine' => $machine,
-        	'machines' => $machines,
-        ]);
-    }
+    // public function edit($id){
+    // 	if(intval($id) < 1){
+    // 		$this->error('参数不合法');
+    // 	}
+    // 	$machine = $this->obj->get($id);
+    // 	$machines = $this->obj->getNormalFirstmachines();
+    //     return $this->fetch('',[
+    //     	'machine' => $machine,
+    //     	'machines' => $machines,
+    //     ]);
+    // }
 
     public function save(Request $request){
         // print_r(request()->post());
@@ -58,12 +58,12 @@ class Machine extends Controller
         }
     }
 
-    public function resave(Request $request){
+    public function change(Request $request){
         // print_r(request()->post());
         $data = request()->post();
 
         $validate = validate('machine');
-        if(!$validate->scene('add')->check($data)){
+        if(!$validate->scene('change')->check($data)){
             $this->error($validate->getError());
         }
         $res = $this->obj->update($data,['id' => $data['id']]);
@@ -82,7 +82,7 @@ class Machine extends Controller
         if(!$validate->scene('status')->check($data)){
             $this->error($validate->getError());
         }
-        $res = $this->obj->update($data,['id' => $data['id']]);
+        $res = $this->machine_obj->update($data,['id' => $data['id']]);
         if($res){
             $this->success('更新状态成功');
         }

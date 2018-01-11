@@ -1,5 +1,5 @@
 <?php
-namespace app\admin\validate;
+namespace app\common\validate;
 use think\Validate;
 
 class Machine extends Validate{

@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:86:"D:\Software\phpstudy\WWW\study\Air_Monitor\public/../app/admin\view\machine\index.html";i:1515641212;s:76:"D:\Software\phpstudy\WWW\study\Air_Monitor\app\admin\view\public\header.html";i:1515491265;s:76:"D:\Software\phpstudy\WWW\study\Air_Monitor\app\admin\view\public\footer.html";i:1514785741;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:84:"D:\Software\phpstudy\WWW\study\Air_Monitor\public/../app/admin\view\machine\add.html";i:1515648312;s:76:"D:\Software\phpstudy\WWW\study\Air_Monitor\app\admin\view\public\header.html";i:1515491265;s:76:"D:\Software\phpstudy\WWW\study\Air_Monitor\app\admin\view\public\footer.html";i:1514785741;}*/ ?>
 <!--包含头部文件-->
 <!DOCTYPE HTML>
 <html>
@@ -42,12 +42,9 @@ body{height:100%;margin:0px;padding:0px}
 </script>
 </head>
 <body>
-<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 监测仪器 <span class="c-gray en">&gt;</span> 仪器概况 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
 <div class="page-container">
-	
-	<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"> <a class="btn btn-primary radius" onclick="o2o_edit('添加监测点','<?php echo url('machine/add'); ?>')" href="javascript:;"><i class="Hui-iconfont">&#xe600;</i> 添加监测点</a></span> <span class="r"></span> </div>
-
-	<div class="row cl">
+	<form class="form form-horizontal form-o2o-add" id="form-o2o-add" method="post" action="<?php echo url('machine/save'); ?>">
+		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2"><span class="c-red"></span>所属城市：</label>
 			<div class="formControls col-xs-8 col-sm-2"> 
 				<span class="select-box">
@@ -66,41 +63,39 @@ body{height:100%;margin:0px;padding:0px}
 				</select>
 				</span> 
 			</div>
-	</div>
+		</div>
 
-	<!--<img style="margin:20px" width="500" height="400" src="<?php echo url('index/index/map'); ?>"/>-->
-	<div class="mt-20">
-		<table class="table table-border table-bordered table-bg table-hover table-sort">
-			<thead>
-				<tr class="text-c">
-					<th width="40"><input name="" type="checkbox" value=""></th>
-					<th width="80">ID</th>
-					<th width="100">机器名</th>
-					<th width="30">经度</th>
-					<th width="30">纬度</th>
-					<th width="150">新增时间</th>
-					<th width="60">状态</th>
-					<th width="100">操作</th>
-				</tr>
-			</thead>
-			<tbody>
-				<?php if(is_array($machines) || $machines instanceof \think\Collection || $machines instanceof \think\Paginator): $i = 0; $__LIST__ = $machines;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?>
-				<tr class="text-c">
-					<td><input name="" type="checkbox" value=""></td>
-					<td><?php echo $vo['id']; ?></td>
-					<td><?php echo $vo['city_path']."_".$vo['number']; ?></td>
-					<td class="text-c xpoint"><input size="7" attr-id="<?php echo $vo['id']; ?>" name="xpoint" value="<?php echo $vo['xpoint']; ?>"/></td>
-					<td class="text-c ypoint"><input size="7" attr-id="<?php echo $vo['id']; ?>" name="ypoint" value="<?php echo $vo['ypoint']; ?>"/></td>
-					<td><?php echo date("Y-m-d H:i:s",$vo['create_time']); ?></td>
-					<td class="td-status"><a href="<?php echo url('machine/status',['id'=>$vo['id'],'status'=>$vo['status']==1?0:1]); ?>" title="点击修改状态"><?php echo status($vo['status']); ?></a></td>
-					<td class="td-manage"><a style="text-decoration:none" class="ml-5" onClick="o2o_del('<?php echo url('machine/status',['id'=>$vo['id'],'status'=>'-1']); ?>')" href="javascript:;" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
-				</tr>
-				<?php endforeach; endif; else: echo "" ;endif; ?>
-			</tbody>
-		</table>
-	</div>
+		<div class="mt-20">
+			<table class="table table-border table-bordered table-bg table-hover table-sort">
+				<thead>
+					<tr class="text-c">
+						<!-- <th width="40"><input name="" type="checkbox" value=""></th> -->
+						<th width="100">机器名</th>
+						<th width="30">经度</th>
+						<th width="30">纬度</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr class="text-c">
+						<!-- <td><input name="" type="checkbox" value=""></td> -->
+						<td>{123}</td>
+						<td class="text-c xpoint"><input size="7" attr-id="" name="xpoint" value=""/></td>
+						<td class="text-c ypoint"><input size="7" attr-id="" name="ypoint" value=""/></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		
+		<div class="row cl">
+			<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-2">
+				<button  type="submit" class="btn btn-primary radius" ><i class="Hui-iconfont">&#xe632;</i> 保存</button>
+				
+				<button onClick="layer_close();" class="btn btn-default radius" type="button">&nbsp;&nbsp;取消&nbsp;&nbsp;</button>
+			</div>
+		</div>
+	</form>
 </div>
-<?php echo pagination($machines); ?>
+</div>
 <!--包含头部文件-->
 <script type="text/javascript" src="__STATIC__/admin/hui/lib/jquery/1.9.1/jquery.min.js"></script>
 <script type="text/javascript" src="__STATIC__/admin/hui/lib/layer/2.1/layer.js"></script> 
@@ -116,8 +111,6 @@ body{height:100%;margin:0px;padding:0px}
 <script>
 	var SCOPE = {
 		'city_url':"<?php echo url('api/City/getCitiesByParentId'); ?>",
-		'xypoint_url':"<?php echo url('api/Machine/change'); ?>",
+		'se_city_url':"<?php echo url('api/Machine/add'); ?>",
 	};
 </script>
-</body>
-</html>

@@ -23,9 +23,9 @@ class Machine extends Controller
     }
 
     public function add(){
-    	$machines = $this->obj->getNormalFirstmachines();
+    	$cities = $this->city_obj->getNormalCitiesByParentId();
         return $this->fetch('',[
-        	'machines' => $machines,
+        	'cities' => $cities,
         ]);
     }
 

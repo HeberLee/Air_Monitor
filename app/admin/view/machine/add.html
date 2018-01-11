@@ -2,25 +2,47 @@
 {include file="public/header" /}
 <body>
 <div class="page-container">
-	<form class="form form-horizontal form-o2o-add" id="form-o2o-add" method="post" action="{:url('category/save')}">
+	<form class="form form-horizontal form-o2o-add" id="form-o2o-add" method="post" action="{:url('machine/save')}">
 		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>生活服务分类名称：</label>
-			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" value="" placeholder="" id="name" name="name">
-			</div>
-		</div>
-		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>分类栏目：</label>
-			<div class="formControls col-xs-8 col-sm-9">
+			<label class="form-label col-xs-4 col-sm-2"><span class="c-red"></span>所属城市：</label>
+			<div class="formControls col-xs-8 col-sm-2"> 
 				<span class="select-box">
-				<select name="parent_id" class="select">
-					<option value="0">一级分类</option>
-					{volist name="categorys" id="vo"}
+				<select name="city_id" class="select cityId">
+					<option value="0">--请选择--</option>
+					{volist name="cities" id="vo"}
 					<option value="{$vo.id}">{$vo.name}</option>
 					{/volist}
 				</select>
 				</span>
 			</div>
+			<div class="formControls col-xs-8 col-sm-2">
+				<span class="select-box">
+				<select name="se_city_id" class="select se_city_id">
+					<option value="0">--请选择--</option>
+				</select>
+				</span> 
+			</div>
+		</div>
+
+		<div class="mt-20">
+			<table class="table table-border table-bordered table-bg table-hover table-sort">
+				<thead>
+					<tr class="text-c">
+						<!-- <th width="40"><input name="" type="checkbox" value=""></th> -->
+						<th width="100">机器名</th>
+						<th width="30">经度</th>
+						<th width="30">纬度</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr class="text-c">
+						<!-- <td><input name="" type="checkbox" value=""></td> -->
+						<td>{123}</td>
+						<td class="text-c xpoint"><input size="7" attr-id="" name="xpoint" value=""/></td>
+						<td class="text-c ypoint"><input size="7" attr-id="" name="ypoint" value=""/></td>
+					</tr>
+				</tbody>
+			</table>
 		</div>
 		
 		<div class="row cl">
@@ -35,3 +57,9 @@
 </div>
 <!--包含头部文件-->
 {include file="public/footer" /}
+<script>
+	var SCOPE = {
+		'city_url':"{:url('api/City/getCitiesByParentId')}",
+		'se_city_url':"{:url('api/Machine/add')}",
+	};
+</script>

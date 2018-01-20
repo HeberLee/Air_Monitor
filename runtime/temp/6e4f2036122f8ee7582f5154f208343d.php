@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:84:"D:\Software\phpstudy\WWW\study\Air_Monitor\public/../app/admin\view\machine\add.html";i:1516451925;s:76:"D:\Software\phpstudy\WWW\study\Air_Monitor\app\admin\view\public\header.html";i:1515491265;s:76:"D:\Software\phpstudy\WWW\study\Air_Monitor\app\admin\view\public\footer.html";i:1514785741;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:82:"D:\Software\phpstudy\WWW\study\Air_Monitor\public/../app/admin\view\map\index.html";i:1516447236;s:76:"D:\Software\phpstudy\WWW\study\Air_Monitor\app\admin\view\public\header.html";i:1515491265;s:76:"D:\Software\phpstudy\WWW\study\Air_Monitor\app\admin\view\public\footer.html";i:1514785741;}*/ ?>
 <!--包含头部文件-->
 <!DOCTYPE HTML>
 <html>
@@ -42,60 +42,39 @@ body{height:100%;margin:0px;padding:0px}
 </script>
 </head>
 <body>
-<div class="page-container">
-	<form class="form form-horizontal form-o2o-add" id="form-o2o-add" method="post" action="<?php echo url('machine/save'); ?>">
-		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-2"><span class="c-red"></span>所属城市：</label>
-			<div class="formControls col-xs-8 col-sm-2"> 
-				<span class="select-box">
-				<select name="city_id" class="select cityId_add">
-					<option value="0">--请选择--</option>
-					<?php if(is_array($cities) || $cities instanceof \think\Collection || $cities instanceof \think\Paginator): $i = 0; $__LIST__ = $cities;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?>
-					<option value="<?php echo $vo['id']; ?>"><?php echo $vo['name']; ?></option>
-					<?php endforeach; endif; else: echo "" ;endif; ?>
-				</select>
-				</span>
-			</div>
-			<div class="formControls col-xs-8 col-sm-2">
-				<span class="select-box">
-				<select name="se_city_id_add" class="select se_city_id_add">
-					<option value="0">--请选择--</option>
-				</select>
-				</span> 
-			</div>
-		</div>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 地图 <span class="c-gray en">&gt;</span> 监测点分布 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
 
-		<div class="mt-20">
-			<table class="table table-border table-bordered table-bg table-hover table-sort">
-				<thead>
-					<tr class="text-c">
-						<!-- <th width="40"><input name="" type="checkbox" value=""></th> -->
-						<th width="100">机器名</th>
-						<th width="30">经度</th>
-						<th width="30">纬度</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr class="text-c">
-						<!-- <td><input name="" type="checkbox" value=""></td> -->
-						<td>{123}</td>
-						<td class="text-c xpoint"><input size="7" attr-id="" name="xpoint" value=""/></td>
-						<td class="text-c ypoint"><input size="7" attr-id="" name="ypoint" value=""/></td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
-		
-		<div class="row cl">
-			<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-2">
-				<button  type="submit" class="btn btn-primary radius" ><i class="Hui-iconfont">&#xe632;</i> 保存</button>
-				
-				<button onClick="layer_close();" class="btn btn-default radius" type="button">&nbsp;&nbsp;取消&nbsp;&nbsp;</button>
-			</div>
-		</div>
-	</form>
-</div>
-</div>
+
+<div id="iframe_box" class="Hui-article">
+<!-- 		<div class="show_iframe">
+			<div style="display:none" class="loading"></div>
+			<iframe scrolling="yes" frameborder="0" src="<?php echo url('index/welcome'); ?>"></iframe>
+		</div> -->
+		<div id="container"></div> 
+			<script type="text/javascript"> 
+			var map = new BMap.Map("container");
+			// 创建地图实例  
+			var point = new BMap.Point(118.604, 24.915);
+			// 创建点坐标  
+			map.centerAndZoom(point, 13);
+			map.enableScrollWheelZoom(true); 
+			// 初始化地图，设置中心点坐标和地图级别  
+			var opts = {type: BMAP_NAVIGATION_CONTROL_LARGE};
+			map.addControl(new BMap.NavigationControl(opts));    
+			map.addControl(new BMap.ScaleControl());    
+			map.addControl(new BMap.OverviewMapControl());    
+			map.addControl(new BMap.MapTypeControl());    
+			map.setCurrentCity("泉州");
+			//标注点
+			var marker = new BMap.Marker(point,{fillColor:"green"});        // 创建标注    
+			map.addOverlay(marker); 
+			//点击标注点触发事件
+			marker.addEventListener("mouseover", function(){    
+    		alert("您点击了标注");    
+			}); 
+			marker.setAnimation(BMAP_ANIMATION_BOUNCE);
+			</script>  
+	</div>
 <!--包含头部文件-->
 <script type="text/javascript" src="__STATIC__/admin/hui/lib/jquery/1.9.1/jquery.min.js"></script>
 <script type="text/javascript" src="__STATIC__/admin/hui/lib/layer/2.1/layer.js"></script> 
@@ -111,6 +90,8 @@ body{height:100%;margin:0px;padding:0px}
 <script>
 	var SCOPE = {
 		'city_url':"<?php echo url('api/City/getCitiesByParentId'); ?>",
-		'se_city_url':"<?php echo url('api/Machine/add'); ?>",
+		'xypoint_url':"<?php echo url('api/Machine/change'); ?>",
 	};
 </script>
+</body>
+</html>

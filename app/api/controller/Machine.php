@@ -32,17 +32,22 @@ class Machine extends Controller{
     	}
 	}
 
+//当接收到发来的一级和二级城市名时，拼接成机器名并返回
     public function add(Request $request){
         // print_r(request()->post());
       
         $data = request()->post();
-
+        // return print_r($data);
         $validate = validate('City');
         if(!$validate->scene('add_machine')->check($data)){
             $this->error($validate->getError());
         }
-        $city_path = $data['city_id'].'_'.$data['se_city_id'];
-        $res = $this->machine_obj->where('city_path' => $city_path)
+        $city = $this->city_obj->where("id","=",$data['city_id'])
+                                ->value("name");
+        $se_city = $this->city_obj->where("id","=",$data['se_city_id'])
+                                    ->value("name");
+        $city_path = $city.'_'.$se_city;
+        $res = $this->machine_obj->where('city_path',"=",$city_path)
                                 ->max('number');
         $number = empty($res)?1:($res+1);
         $machine_name = $city_path.'_'.$number;
@@ -50,6 +55,7 @@ class Machine extends Controller{
         return show(1,'success',$machine_name);            
         }
         return show(0,'error');
+        
     }
 
 

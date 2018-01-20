@@ -50,7 +50,7 @@
 					<td>{$vo.city_path."_".$vo.number}</td>
 					<td class="text-c xpoint"><input size="7" attr-id="{$vo.id}" name="xpoint" value="{$vo.xpoint}"/></td>
 					<td class="text-c ypoint"><input size="7" attr-id="{$vo.id}" name="ypoint" value="{$vo.ypoint}"/></td>
-					<td>{$vo.create_time|date="Y-m-d H:i:s",###}</td>
+					<td>{$vo.create_time|date="Y-m-d",###}</td>
 					<td class="td-status"><a href="{:url('machine/status',['id'=>$vo.id,'status'=>$vo.status==1?0:1])}" title="点击修改状态">{$vo.status|status}</a></td>
 					<td class="td-manage"><a style="text-decoration:none" class="ml-5" onClick="o2o_del('{:url('machine/status',['id'=>$vo.id,'status'=>'-1'])}')" href="javascript:;" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
 				</tr>

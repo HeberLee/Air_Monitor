@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:4:{s:84:"D:\Software\phpstudy\WWW\study\Air_Monitor\public/../app/admin\view\index\index.html";i:1515495987;s:76:"D:\Software\phpstudy\WWW\study\Air_Monitor\app\admin\view\public\header.html";i:1515491265;s:74:"D:\Software\phpstudy\WWW\study\Air_Monitor\app\admin\view\public\menu.html";i:1515508189;s:76:"D:\Software\phpstudy\WWW\study\Air_Monitor\app\admin\view\public\footer.html";i:1514785741;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:4:{s:84:"D:\Software\phpstudy\WWW\study\Air_Monitor\public/../app/admin\view\index\index.html";i:1516447259;s:76:"D:\Software\phpstudy\WWW\study\Air_Monitor\app\admin\view\public\header.html";i:1515491265;s:74:"D:\Software\phpstudy\WWW\study\Air_Monitor\app\admin\view\public\menu.html";i:1516446501;s:76:"D:\Software\phpstudy\WWW\study\Air_Monitor\app\admin\view\public\footer.html";i:1514785741;}*/ ?>
 ﻿<!--包含头部文件-->
 <!DOCTYPE HTML>
 <html>
@@ -80,7 +80,7 @@ body{height:100%;margin:0px;padding:0px}
 			<dt><i class="Hui-iconfont">&#xe616;</i> 地图<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
 			<dd>
 				<ul>
-					<li><a _href="<?php echo url('category/index'); ?>" data-title="监测点分布" href="javascript:void(0)">监测点分布</a></li>
+					<li><a _href="<?php echo url('map/index'); ?>" data-title="监测点分布" href="javascript:void(0)">监测点分布</a></li>
 				</ul>
 			</dd>
 		</dl>
@@ -124,11 +124,11 @@ body{height:100%;margin:0px;padding:0px}
 		<div class="Hui-tabNav-more btn-group"><a id="js-tabNav-prev" class="btn radius btn-default size-S" href="javascript:;"><i class="Hui-iconfont">&#xe6d4;</i></a><a id="js-tabNav-next" class="btn radius btn-default size-S" href="javascript:;"><i class="Hui-iconfont">&#xe6d7;</i></a></div>
 	</div>
 	<div id="iframe_box" class="Hui-article">
-<!-- 		<div class="show_iframe">
+		<div class="show_iframe">
 			<div style="display:none" class="loading"></div>
 			<iframe scrolling="yes" frameborder="0" src="<?php echo url('index/welcome'); ?>"></iframe>
-		</div> -->
-		<div id="container"></div> 
+		</div>
+<!-- 		<div id="container"></div> 
 			<script type="text/javascript"> 
 			var map = new BMap.Map("container");
 			// 创建地图实例  
@@ -152,7 +152,7 @@ body{height:100%;margin:0px;padding:0px}
 			}); 
 			marker.setAnimation(BMAP_ANIMATION_BOUNCE);
 			</script>  
-	</div>
+	</div> -->
 </section>
 <!--包含菜单文件-->
 <script type="text/javascript" src="__STATIC__/admin/hui/lib/jquery/1.9.1/jquery.min.js"></script>

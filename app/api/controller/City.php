@@ -10,7 +10,7 @@ class City extends Controller{
 		$this->obj = model('City');
 	}
 	public function getCitiesByParentId($id){
-		$parent_id = input('post.id');
+		$parent_id = $id;
 		if(!$parent_id){
 			$this->error('id不存在');
 		}

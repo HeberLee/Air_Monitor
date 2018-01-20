@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:86:"D:\Software\phpstudy\WWW\study\Air_Monitor\public/../app/admin\view\machine\index.html";i:1515641212;s:76:"D:\Software\phpstudy\WWW\study\Air_Monitor\app\admin\view\public\header.html";i:1515491265;s:76:"D:\Software\phpstudy\WWW\study\Air_Monitor\app\admin\view\public\footer.html";i:1514785741;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:86:"D:\Software\phpstudy\WWW\study\Air_Monitor\public/../app/admin\view\machine\index.html";i:1516450042;s:76:"D:\Software\phpstudy\WWW\study\Air_Monitor\app\admin\view\public\header.html";i:1515491265;s:76:"D:\Software\phpstudy\WWW\study\Air_Monitor\app\admin\view\public\footer.html";i:1514785741;}*/ ?>
 <!--包含头部文件-->
 <!DOCTYPE HTML>
 <html>
@@ -91,7 +91,7 @@ body{height:100%;margin:0px;padding:0px}
 					<td><?php echo $vo['city_path']."_".$vo['number']; ?></td>
 					<td class="text-c xpoint"><input size="7" attr-id="<?php echo $vo['id']; ?>" name="xpoint" value="<?php echo $vo['xpoint']; ?>"/></td>
 					<td class="text-c ypoint"><input size="7" attr-id="<?php echo $vo['id']; ?>" name="ypoint" value="<?php echo $vo['ypoint']; ?>"/></td>
-					<td><?php echo date("Y-m-d H:i:s",$vo['create_time']); ?></td>
+					<td><?php echo date("Y-m-d",$vo['create_time']); ?></td>
 					<td class="td-status"><a href="<?php echo url('machine/status',['id'=>$vo['id'],'status'=>$vo['status']==1?0:1]); ?>" title="点击修改状态"><?php echo status($vo['status']); ?></a></td>
 					<td class="td-manage"><a style="text-decoration:none" class="ml-5" onClick="o2o_del('<?php echo url('machine/status',['id'=>$vo['id'],'status'=>'-1']); ?>')" href="javascript:;" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
 				</tr>

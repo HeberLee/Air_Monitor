@@ -15,6 +15,8 @@ class Machine extends Validate{
 	/**场景设置**/
 	protected $scene = [
 		'add' => ['name','parent_id'],
+		'add_machine' => ['xpoint','ypoint'],
+		'get_machine_1' => ['id'],
 		'change' => ['id','xpoint','ypoint'],
 		'listorder' => ['id','listorder'],
 		'status' => ['id','status'],

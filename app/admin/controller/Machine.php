@@ -45,10 +45,14 @@ class Machine extends Controller
         // print_r(request()->post());
         $data = request()->post();
         $validate = validate('machine');
-        if(!$validate->scene('add')->check($data)){
+        if(!$validate->scene('add_machine')->check($data)){
             $this->error($validate->getError());
         }
-        $res = $this->obj->add($data);
+        unset($data['se_city_id_add']);
+        unset($data['cityIsd_add']);
+
+
+        $res = $this->machine_obj->add($data);
         
         if($res){
             $this->success('添加成功');

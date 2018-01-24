@@ -42,16 +42,16 @@
 					<th width="100">操作</th>
 				</tr>
 			</thead>
-			<tbody>
+			<tbody class="machine">
 				{volist name="machines" id="vo"}
 				<tr class="text-c">
 					<td><input name="" type="checkbox" value=""></td>
-					<td>{$vo.id}</td>
-					<td>{$vo.city_path."_".$vo.number}</td>
-					<td class="text-c xpoint"><input size="7" attr-id="{$vo.id}" name="xpoint" value="{$vo.xpoint}"/></td>
-					<td class="text-c ypoint"><input size="7" attr-id="{$vo.id}" name="ypoint" value="{$vo.ypoint}"/></td>
-					<td>{$vo.create_time|date="Y-m-d",###}</td>
-					<td class="td-status"><a href="{:url('machine/status',['id'=>$vo.id,'status'=>$vo.status==1?0:1])}" title="点击修改状态">{$vo.status|status}</a></td>
+					<td id="id">{$vo.id}</td>
+					<td id="city_path">{$vo.city_path."_".$vo.number}</td>
+					<td id="xpoint" class="text-c xpoint"><input size="7" attr-id="{$vo.id}" name="xpoint" value="{$vo.xpoint}"/></td>
+					<td id="ypoint" class="text-c ypoint"><input size="7" attr-id="{$vo.id}" name="ypoint" value="{$vo.ypoint}"/></td>
+					<td id="create_time">{$vo.create_time|date="Y-m-d",###}</td>
+					<td id="status" class="td-status"><a href="{:url('machine/status',['id'=>$vo.id,'status'=>$vo.status==1?0:1])}" title="点击修改状态">{$vo.status|status}</a></td>
 					<td class="td-manage"><a style="text-decoration:none" class="ml-5" onClick="o2o_del('{:url('machine/status',['id'=>$vo.id,'status'=>'-1'])}')" href="javascript:;" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
 				</tr>
 				{/volist}
@@ -59,13 +59,13 @@
 		</table>
 	</div>
 </div>
-{:pagination($machines)}
 <!--包含头部文件-->
 {include file="public/footer" /}
 <script>
 	var SCOPE = {
 		'city_url':"{:url('api/City/getCitiesByParentId')}",
 		'xypoint_url':"{:url('api/Machine/change')}",
+		'machine_url':"{:url('api/Machine/getMacinesByCityId')}",
 	};
 </script>
 </body>

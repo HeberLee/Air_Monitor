@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:86:"D:\Software\phpstudy\WWW\study\Air_Monitor\public/../app/admin\view\machine\index.html";i:1516450042;s:76:"D:\Software\phpstudy\WWW\study\Air_Monitor\app\admin\view\public\header.html";i:1515491265;s:76:"D:\Software\phpstudy\WWW\study\Air_Monitor\app\admin\view\public\footer.html";i:1514785741;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:86:"D:\Software\phpstudy\WWW\study\Air_Monitor\public/../app/admin\view\machine\index.html";i:1516760874;s:76:"D:\Software\phpstudy\WWW\study\Air_Monitor\app\admin\view\public\header.html";i:1515491265;s:76:"D:\Software\phpstudy\WWW\study\Air_Monitor\app\admin\view\public\footer.html";i:1514785741;}*/ ?>
 <!--包含头部文件-->
 <!DOCTYPE HTML>
 <html>
@@ -83,16 +83,16 @@ body{height:100%;margin:0px;padding:0px}
 					<th width="100">操作</th>
 				</tr>
 			</thead>
-			<tbody>
+			<tbody class="machine">
 				<?php if(is_array($machines) || $machines instanceof \think\Collection || $machines instanceof \think\Paginator): $i = 0; $__LIST__ = $machines;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?>
 				<tr class="text-c">
 					<td><input name="" type="checkbox" value=""></td>
-					<td><?php echo $vo['id']; ?></td>
-					<td><?php echo $vo['city_path']."_".$vo['number']; ?></td>
-					<td class="text-c xpoint"><input size="7" attr-id="<?php echo $vo['id']; ?>" name="xpoint" value="<?php echo $vo['xpoint']; ?>"/></td>
-					<td class="text-c ypoint"><input size="7" attr-id="<?php echo $vo['id']; ?>" name="ypoint" value="<?php echo $vo['ypoint']; ?>"/></td>
-					<td><?php echo date("Y-m-d",$vo['create_time']); ?></td>
-					<td class="td-status"><a href="<?php echo url('machine/status',['id'=>$vo['id'],'status'=>$vo['status']==1?0:1]); ?>" title="点击修改状态"><?php echo status($vo['status']); ?></a></td>
+					<td id="id"><?php echo $vo['id']; ?></td>
+					<td id="city_path"><?php echo $vo['city_path']."_".$vo['number']; ?></td>
+					<td id="xpoint" class="text-c xpoint"><input size="7" attr-id="<?php echo $vo['id']; ?>" name="xpoint" value="<?php echo $vo['xpoint']; ?>"/></td>
+					<td id="ypoint" class="text-c ypoint"><input size="7" attr-id="<?php echo $vo['id']; ?>" name="ypoint" value="<?php echo $vo['ypoint']; ?>"/></td>
+					<td id="create_time"><?php echo date("Y-m-d",$vo['create_time']); ?></td>
+					<td id="status" class="td-status"><a href="<?php echo url('machine/status',['id'=>$vo['id'],'status'=>$vo['status']==1?0:1]); ?>" title="点击修改状态"><?php echo status($vo['status']); ?></a></td>
 					<td class="td-manage"><a style="text-decoration:none" class="ml-5" onClick="o2o_del('<?php echo url('machine/status',['id'=>$vo['id'],'status'=>'-1']); ?>')" href="javascript:;" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
 				</tr>
 				<?php endforeach; endif; else: echo "" ;endif; ?>
@@ -100,7 +100,6 @@ body{height:100%;margin:0px;padding:0px}
 		</table>
 	</div>
 </div>
-<?php echo pagination($machines); ?>
 <!--包含头部文件-->
 <script type="text/javascript" src="__STATIC__/admin/hui/lib/jquery/1.9.1/jquery.min.js"></script>
 <script type="text/javascript" src="__STATIC__/admin/hui/lib/layer/2.1/layer.js"></script> 
@@ -117,6 +116,7 @@ body{height:100%;margin:0px;padding:0px}
 	var SCOPE = {
 		'city_url':"<?php echo url('api/City/getCitiesByParentId'); ?>",
 		'xypoint_url':"<?php echo url('api/Machine/change'); ?>",
+		'machine_url':"<?php echo url('api/Machine/getMacinesByCityId'); ?>",
 	};
 </script>
 </body>

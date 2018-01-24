@@ -36,33 +36,46 @@ class Machine extends Model{
 		];
 		return $this->where($data)
 					->order($order)
-					->paginate(5);
+					->select();
 	}
-
-
-	public function getMachinesByParentId($parent_id){
+//根据一级城市获取对应机器
+	public function getMacinesByCityId($city_id){
 		$data = [
-			'parent_id' => $parent_id,
+			'city_id' => ['eq',$city_id],
 			'status' => ['neq','-1'],
 		];
 		$order = [
-			'listorder' => 'asc',
-		];
-		return $this->where($data)
-					->order($order)
-					->paginate(5);
-	}
-
-	public function getMachinesByParentIdNoPages($parent_id){
-		$data = [
-			'parent_id' => $parent_id,
-			'status' => ['neq','-1'],
-		];
-		$order = [
-			'listorder' => 'asc',
+			'id' => 'asc',
 		];
 		return $this->where($data)
 					->order($order)
 					->select();
 	}
+
+
+	// public function getMachinesByParentId($parent_id){
+	// 	$data = [
+	// 		'parent_id' => $parent_id,
+	// 		'status' => ['neq','-1'],
+	// 	];
+	// 	$order = [
+	// 		'listorder' => 'asc',
+	// 	];
+	// 	return $this->where($data)
+	// 				->order($order)
+	// 				->paginate(5);
+	// }
+
+	// public function getMachinesByParentIdNoPages($parent_id){
+	// 	$data = [
+	// 		'parent_id' => $parent_id,
+	// 		'status' => ['neq','-1'],
+	// 	];
+	// 	$order = [
+	// 		'listorder' => 'asc',
+	// 	];
+	// 	return $this->where($data)
+	// 				->order($order)
+	// 				->select();
+	// }
 }

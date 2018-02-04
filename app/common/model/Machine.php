@@ -38,6 +38,18 @@ class Machine extends Model{
 					->order($order)
 					->select();
 	}
+
+	public function getMachinesByConditions($data){
+		// $data[] = [
+		// 	'status' => ['eq','1'],
+		// ];
+		$order = [
+			'id' => 'asc',
+		];
+		return $this->where($data)
+					->order($order)
+					->select();
+	}
 //根据一级城市获取对应机器
 	public function getMacinesByCityId($city_id){
 		$data = [

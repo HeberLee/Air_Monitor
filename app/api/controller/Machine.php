@@ -76,7 +76,7 @@ class Machine extends Controller{
         $allData['number'] = $number;
         $allData['city_id'] = $data['city_id'];
         $allData['se_city_id'] = $data['se_city_id'];
-        $allData['machine_name'] = $machine_name;
+        $allData['name'] = $machine_name;
 
         if($machine_name){
         return show(1,'success',$allData);            

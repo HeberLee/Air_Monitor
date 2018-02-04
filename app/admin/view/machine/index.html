@@ -6,26 +6,42 @@
 	
 	<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"> <a class="btn btn-primary radius" onclick="o2o_edit('添加监测点','{:url('machine/add')}')" href="javascript:;"><i class="Hui-iconfont">&#xe600;</i> 添加监测点</a></span> <span class="r"></span> </div>
 
-	<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-2"><span class="c-red"></span>所属城市：</label>
-			<div class="formControls col-xs-8 col-sm-2"> 
-				<span class="select-box">
-				<select name="city_id" class="select cityId">
-					<option value="0">--请选择--</option>
-					{volist name="cities" id="vo"}
-					<option value="{$vo.id}">{$vo.name}</option>
-					{/volist}
-				</select>
-				</span>
-			</div>
-			<div class="formControls col-xs-8 col-sm-2">
-				<span class="select-box">
-				<select name="se_city_id" class="select se_city_id">
-					<option value="0">--请选择--</option>
-				</select>
-				</span> 
-			</div>
+	<div class="cl pd-5 bg-1 bk-gray mt-20"> 
+	<div class="text-c">
+		<form action="{:url('machine/index')}" method="get">
+
+		<span class="select-box inline">
+			<select name="city_id" class="select cityId">
+				<option value="0">一级城市</option>
+				{volist name="cities" id="vo"}
+				<option value="{$vo.id}" {if condition="$vo.id eq $city_id"}selected="selected"{/if}>{$vo.name}</option>
+
+				{/volist}
+			</select>
+		</span>
+		<span class="select-box inline">
+			<select name="se_city_id" class="select se_city_id">
+				
+				<option value="0" >二级城市</option>
+				{volist name="se_cities" id="vo"}
+				<option value="{$vo.id}" {if condition="$vo.id eq $se_city_id"}selected="selected"{/if}>{$vo.name}</option>
+				{/volist}
+			</select>
+		</span>
+		<span class="select-box inline">
+			<select name="status" class="select">
+				<option value="2" {if condition="2 eq $status"}selected="selected"{/if}>所有</option>
+				<option value="1" {if condition="1 eq $status"}selected="selected"{/if}>正常</option>
+				<option value="0" {if condition="0 eq $status"}selected="selected"{/if}>关闭</option>
+		
+			</select>
+		</span> 
+		<input type="text" name="name" id="" value="{$name}" placeholder=" 商品名称" style="width:250px" class="input-text">
+		<button name="" id="" class="btn btn-success" type="submit"><i class="Hui-iconfont">&#xe665;</i> 搜索
+		</button>
+	</form>>
 	</div>
+</div>
 
 	<!--<img style="margin:20px" width="500" height="400" src="{:url('index/index/map')}"/>-->
 	<div class="mt-20">

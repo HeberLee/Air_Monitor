@@ -14,12 +14,55 @@ class Machine extends Controller
 	}
     public function index($parent_id=0){
     	// return 'hello monika';
-    	$machines = $this->machine_obj->getMachines();
+        $data = input('get.');
+        $sdata = [];
+        $machines = [];
         $cities = $this->city_obj->getNormalCitiesByParentId();
+
+
+
+        if(!empty($data['se_city_id'])){
+            $sdata['se_city_id'] = $data['se_city_id'];
+        }
+
+        if(!empty($data['city_id'])){
+            $sdata['city_id'] = $data['city_id'];
+        }
+        if(!empty($data['status'])){
+            if($data['status']==2){
+                $sdata['status'] = ['in','0,1'];
+            }
+            else{
+                $sdata['status'] = $data['status'];
+            }
+            
+        }
+
+        if(!empty($data['name'])){
+            $sdata['name'] = ['like','%'.$data['name'].'%'];
+
+        }
+
+        if(!empty($sdata)){
+
+            $machines = model('machine')->getMachinesByConditions($sdata);
+        }
+        else{
+            $machines = model('machine')->getMachines($sdata);
+        }
+
+
         return $this->fetch('',[
-            'machines' => $machines,
-        	'cities' => $cities,
+            'cities'=>$cities,
+            'se_cities'=>empty($se_cities)?'':$data['se_cities'],
+            'machines'=>$machines,
+            'se_city_id' => empty($data['se_city_id'])?'':$data['se_city_id'],
+            'status'=> empty($data['status'])?'':$data['status'],
+            'city_id' => empty($data['city_id'])?'':$data['city_id'],
+            'name' => empty($data['name'])?'':$data['name'],
+
         ]);
+
     }
 
     public function add(){
@@ -49,7 +92,7 @@ class Machine extends Controller
             $this->error($validate->getError());
         }
         unset($data['se_city_id_add']);
-        unset($data['cityIsd_add']);
+        unset($data['cityId_add']);
 
 
         $res = $this->machine_obj->add($data);

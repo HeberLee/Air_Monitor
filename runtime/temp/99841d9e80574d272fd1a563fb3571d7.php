@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:86:"D:\Software\phpstudy\WWW\study\Air_Monitor\public/../app/admin\view\machine\index.html";i:1516760874;s:76:"D:\Software\phpstudy\WWW\study\Air_Monitor\app\admin\view\public\header.html";i:1515491265;s:76:"D:\Software\phpstudy\WWW\study\Air_Monitor\app\admin\view\public\footer.html";i:1514785741;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:86:"D:\Software\phpstudy\WWW\study\Air_Monitor\public/../app/admin\view\machine\index.html";i:1517747365;s:76:"D:\Software\phpstudy\WWW\study\Air_Monitor\app\admin\view\public\header.html";i:1515491265;s:76:"D:\Software\phpstudy\WWW\study\Air_Monitor\app\admin\view\public\footer.html";i:1514785741;}*/ ?>
 <!--包含头部文件-->
 <!DOCTYPE HTML>
 <html>
@@ -47,26 +47,42 @@ body{height:100%;margin:0px;padding:0px}
 	
 	<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"> <a class="btn btn-primary radius" onclick="o2o_edit('添加监测点','<?php echo url('machine/add'); ?>')" href="javascript:;"><i class="Hui-iconfont">&#xe600;</i> 添加监测点</a></span> <span class="r"></span> </div>
 
-	<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-2"><span class="c-red"></span>所属城市：</label>
-			<div class="formControls col-xs-8 col-sm-2"> 
-				<span class="select-box">
-				<select name="city_id" class="select cityId">
-					<option value="0">--请选择--</option>
-					<?php if(is_array($cities) || $cities instanceof \think\Collection || $cities instanceof \think\Paginator): $i = 0; $__LIST__ = $cities;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?>
-					<option value="<?php echo $vo['id']; ?>"><?php echo $vo['name']; ?></option>
-					<?php endforeach; endif; else: echo "" ;endif; ?>
-				</select>
-				</span>
-			</div>
-			<div class="formControls col-xs-8 col-sm-2">
-				<span class="select-box">
-				<select name="se_city_id" class="select se_city_id">
-					<option value="0">--请选择--</option>
-				</select>
-				</span> 
-			</div>
+	<div class="cl pd-5 bg-1 bk-gray mt-20"> 
+	<div class="text-c">
+		<form action="<?php echo url('machine/index'); ?>" method="get">
+
+		<span class="select-box inline">
+			<select name="city_id" class="select cityId">
+				<option value="0">一级城市</option>
+				<?php if(is_array($cities) || $cities instanceof \think\Collection || $cities instanceof \think\Paginator): $i = 0; $__LIST__ = $cities;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?>
+				<option value="<?php echo $vo['id']; ?>" <?php if($vo['id'] == $city_id): ?>selected="selected"<?php endif; ?>><?php echo $vo['name']; ?></option>
+
+				<?php endforeach; endif; else: echo "" ;endif; ?>
+			</select>
+		</span>
+		<span class="select-box inline">
+			<select name="se_city_id" class="select se_city_id">
+				
+				<option value="0" >二级城市</option>
+				<?php if(is_array($se_cities) || $se_cities instanceof \think\Collection || $se_cities instanceof \think\Paginator): $i = 0; $__LIST__ = $se_cities;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?>
+				<option value="<?php echo $vo['id']; ?>" <?php if($vo['id'] == $se_city_id): ?>selected="selected"<?php endif; ?>><?php echo $vo['name']; ?></option>
+				<?php endforeach; endif; else: echo "" ;endif; ?>
+			</select>
+		</span>
+		<span class="select-box inline">
+			<select name="status" class="select">
+				<option value="2" <?php if(2 == $status): ?>selected="selected"<?php endif; ?>>所有</option>
+				<option value="1" <?php if(1 == $status): ?>selected="selected"<?php endif; ?>>正常</option>
+				<option value="0" <?php if(0 == $status): ?>selected="selected"<?php endif; ?>>关闭</option>
+		
+			</select>
+		</span> 
+		<input type="text" name="name" id="" value="<?php echo $name; ?>" placeholder=" 商品名称" style="width:250px" class="input-text">
+		<button name="" id="" class="btn btn-success" type="submit"><i class="Hui-iconfont">&#xe665;</i> 搜索
+		</button>
+	</form>>
 	</div>
+</div>
 
 	<!--<img style="margin:20px" width="500" height="400" src="<?php echo url('index/index/map'); ?>"/>-->
 	<div class="mt-20">

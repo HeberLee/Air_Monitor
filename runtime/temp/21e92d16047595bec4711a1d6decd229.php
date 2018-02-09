@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:84:"D:\Software\phpstudy\WWW\study\Air_Monitor\public/../app/admin\view\machine\add.html";i:1517742984;s:76:"D:\Software\phpstudy\WWW\study\Air_Monitor\app\admin\view\public\header.html";i:1515491265;s:76:"D:\Software\phpstudy\WWW\study\Air_Monitor\app\admin\view\public\footer.html";i:1514785741;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:84:"D:\Software\phpstudy\WWW\study\Air_Monitor\public/../app/admin\view\machine\add.html";i:1517752841;s:76:"D:\Software\phpstudy\WWW\study\Air_Monitor\app\admin\view\public\header.html";i:1515491265;s:76:"D:\Software\phpstudy\WWW\study\Air_Monitor\app\admin\view\public\footer.html";i:1514785741;}*/ ?>
 <!--包含头部文件-->
 <!DOCTYPE HTML>
 <html>
@@ -78,7 +78,7 @@ body{height:100%;margin:0px;padding:0px}
 				<tbody>
 					<tr class="text-c">
 						<!-- <td><input name="" type="checkbox" value=""></td> -->
-						<td id="name" name="name"></td>
+						<td id="machine_name" name="machine_name"></td>
 						<td class="text-c xpoint_add"><input size="7" attr-id="" name="xpoint" value=""/></td>
 						<td class="text-c ypoint_add"><input size="7" attr-id="" name="ypoint" value=""/></td>
 					</tr>
@@ -86,7 +86,7 @@ body{height:100%;margin:0px;padding:0px}
 			</table>
 		</div>
 
-		
+		<input type="hidden" name="name" id="name">		
 		<input type="hidden" name="city_path" id="city_path">
 		<input type="hidden" name="number" id="number" value="">
 		<input type="hidden" name="city_id" id="city_id" value="">

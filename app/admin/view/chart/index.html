@@ -1,0 +1,47 @@
+<!--包含头部文件-->
+{include file="public/header" /}
+<body>
+    <nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 数据中心 <span class="c-gray en">&gt;</span> 查看数据 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+    <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+
+    <div class="cl pd-5 bg-1 bk-gray mt-20"> 
+	<div class="text-c">
+
+
+        <span class="select-box inline">
+            <select name="machine_id" class="select chart_machine_id">
+                <option value="0">选择设备</option>
+                {volist name="machines" id="vo"}
+                <option value="{$vo.id}">{$vo.name}</option>
+                {/volist}
+            </select>
+        </span>
+ 
+		日期范围：
+		<input type="text" name="start_time"  class="input-text start_time" id="countTimestart" onfocus="selecttime(1)" value="" style="width:120px;" >
+			-
+		<input type="text" name="end_time"  class="input-text end_time" id="countTimestart" onfocus="selecttime(1)" value=""  style="width:120px;">
+
+		<button name="" id="" class="btn btn-success create-chart" type="submit"><i class="Hui-iconfont">&#xe665;</i> 搜索
+		</button>
+
+	</div>
+</div>
+    <div id="main" style="width: 600px;height:400px;"></div>
+
+    <script type="text/javascript">
+        // 基于准备好的dom，初始化echarts实例
+       
+
+    </script>
+{include file="public/footer" /}
+<script>
+    var SCOPE = {
+        'city_url':"{:url('api/City/getCitiesByParentId')}",
+        'xypoint_url':"{:url('api/Machine/change')}",
+        'machine_url':"{:url('api/Machine/getMacinesByCityId')}",
+        'chart_url':"{:url('admin/Chart/chart')}",
+    };
+</script>
+</body>
+</html>

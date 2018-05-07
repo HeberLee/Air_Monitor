@@ -29,7 +29,7 @@ class Machine extends Model{
 
 	public function getMachines(){
 		$data = [
-			'status' => ['neq','-1'],
+			'status' => ['neq','0'],
 		];
 		$order = [
 			'id' => 'asc',
@@ -38,6 +38,8 @@ class Machine extends Model{
 					->order($order)
 					->select();
 	}
+
+
 
 	public function getMachinesByConditions($data){
 		// $data[] = [

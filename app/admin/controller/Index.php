@@ -6,11 +6,14 @@ class Index extends Controller
 {
     public function index()
     {
-
-        return $this->fetch();
+        $userInfo = session('user','','AM');
+        return $this->fetch('',[
+            'userInfo' => $userInfo,
+        ]);
     }
      public function test(){
-    	echo "hello heber";
+        //1520845983
+    	model('DataQuanzhou')->ins();
     }
     public function welcome(){
       //  \phpmailer\Email::send('907008122@qq.com','heelo','monika');

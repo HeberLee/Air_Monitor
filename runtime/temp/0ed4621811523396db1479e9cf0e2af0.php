@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:84:"D:\Software\phpstudy\WWW\study\Air_Monitor\public/../app/admin\view\machine\add.html";i:1517752841;s:76:"D:\Software\phpstudy\WWW\study\Air_Monitor\app\admin\view\public\header.html";i:1522475539;s:76:"D:\Software\phpstudy\WWW\study\Air_Monitor\app\admin\view\public\footer.html";i:1520832898;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:84:"D:\Software\phpstudy\WWW\study\Air_Monitor\public/../app/admin\view\chart\index.html";i:1523083144;s:76:"D:\Software\phpstudy\WWW\study\Air_Monitor\app\admin\view\public\header.html";i:1522475539;s:76:"D:\Software\phpstudy\WWW\study\Air_Monitor\app\admin\view\public\footer.html";i:1520832898;}*/ ?>
 <!--包含头部文件-->
 <!DOCTYPE HTML>
 <html>
@@ -48,67 +48,39 @@ body{height:100%;margin:0px;padding:0px}
 
 </head>
 <body>
-<div class="page-container">
-	<form class="form form-horizontal form-o2o-add" id="form-o2o-add" method="post" action="<?php echo url('machine/save'); ?>">
-		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-2"><span class="c-red"></span>所属城市：</label>
-			<div class="formControls col-xs-8 col-sm-2"> 
-				<span class="select-box">
-				<select name="city_id" class="select cityId_add">
-					<option value="0">--请选择--</option>
-					<?php if(is_array($cities) || $cities instanceof \think\Collection || $cities instanceof \think\Paginator): $i = 0; $__LIST__ = $cities;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?>
-					<option value="<?php echo $vo['id']; ?>"><?php echo $vo['name']; ?></option>
-					<?php endforeach; endif; else: echo "" ;endif; ?>
-				</select>
-				</span>
-			</div>
-			<div class="formControls col-xs-8 col-sm-2">
-				<span class="select-box">
-				<select name="se_city_id_add" class="select se_city_id_add">
-					<option value="0">--请选择--</option>
-				</select>
-				</span> 
-			</div>
-		</div>
+    <nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 数据中心 <span class="c-gray en">&gt;</span> 查看数据 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+    <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
 
-		<div class="mt-20">
-			<table class="table table-border table-bordered table-bg table-hover table-sort">
-				<thead>
-					<tr class="text-c">
-						<!-- <th width="40"><input name="" type="checkbox" value=""></th> -->
-						<th width="100">机器名</th>
-						<th width="30">经度</th>
-						<th width="30">纬度</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr class="text-c">
-						<!-- <td><input name="" type="checkbox" value=""></td> -->
-						<td id="machine_name" name="machine_name"></td>
-						<td class="text-c xpoint_add"><input size="7" attr-id="" name="xpoint" value=""/></td>
-						<td class="text-c ypoint_add"><input size="7" attr-id="" name="ypoint" value=""/></td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
+    <div class="cl pd-5 bg-1 bk-gray mt-20"> 
+	<div class="text-c">
 
-		<input type="hidden" name="name" id="name">		
-		<input type="hidden" name="city_path" id="city_path">
-		<input type="hidden" name="number" id="number" value="">
-		<input type="hidden" name="city_id" id="city_id" value="">
-		<input type="hidden" name="se_city_id" id="se_city_id" value="">
-		
-		<div class="row cl">
-			<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-2">
-				<button  type="submit" class="btn btn-primary radius" ><i class="Hui-iconfont">&#xe632;</i> 保存</button>
-				
-				<button onClick="layer_close();" class="btn btn-default radius" type="button">&nbsp;&nbsp;取消&nbsp;&nbsp;</button>
-			</div>
-		</div>
-	</form>
+
+        <span class="select-box inline">
+            <select name="machine_id" class="select chart_machine_id">
+                <option value="0">选择设备</option>
+                <?php if(is_array($machines) || $machines instanceof \think\Collection || $machines instanceof \think\Paginator): $i = 0; $__LIST__ = $machines;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?>
+                <option value="<?php echo $vo['id']; ?>"><?php echo $vo['name']; ?></option>
+                <?php endforeach; endif; else: echo "" ;endif; ?>
+            </select>
+        </span>
+ 
+		日期范围：
+		<input type="text" name="start_time"  class="input-text start_time" id="countTimestart" onfocus="selecttime(1)" value="" style="width:120px;" >
+			-
+		<input type="text" name="end_time"  class="input-text end_time" id="countTimestart" onfocus="selecttime(1)" value=""  style="width:120px;">
+
+		<button name="" id="" class="btn btn-success create-chart" type="submit"><i class="Hui-iconfont">&#xe665;</i> 搜索
+		</button>
+
+	</div>
 </div>
-</div>
-<!--包含头部文件-->
+    <div id="main" style="width: 600px;height:400px;"></div>
+
+    <script type="text/javascript">
+        // 基于准备好的dom，初始化echarts实例
+       
+
+    </script>
 <script type="text/javascript" src="__STATIC__/admin/hui/lib/jquery/1.9.1/jquery.min.js"></script>
 <script type="text/javascript" src="__STATIC__/admin/hui/lib/layer/2.1/layer.js"></script> 
 <script type="text/javascript" src="__STATIC__/admin/hui/lib/My97DatePicker/WdatePicker.js"></script> 
@@ -122,8 +94,12 @@ body{height:100%;margin:0px;padding:0px}
 
 
 <script>
-	var SCOPE = {
-		'city_url':"<?php echo url('api/City/getCitiesByParentId'); ?>",
-		'se_city_url':"<?php echo url('api/Machine/add'); ?>",
-	};
+    var SCOPE = {
+        'city_url':"<?php echo url('api/City/getCitiesByParentId'); ?>",
+        'xypoint_url':"<?php echo url('api/Machine/change'); ?>",
+        'machine_url':"<?php echo url('api/Machine/getMacinesByCityId'); ?>",
+        'chart_url':"<?php echo url('admin/Chart/chart'); ?>",
+    };
 </script>
+</body>
+</html>

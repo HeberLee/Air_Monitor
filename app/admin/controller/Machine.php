@@ -12,8 +12,16 @@ class Machine extends Controller
         $this->machine_obj = model('Machine');
 		$this->city_obj = model('City');
 	}
+/**
+ * [新增监测点展示及搜索功能实现]
+ * @Author   HeberLee
+ * @DateTime 2018-03-11T11:32:53+0800
+ * @param    integer                  $parent_id [description]
+ * @return   [type]                              [description]
+ */
     public function index($parent_id=0){
     	// return 'hello monika';
+ 
         $data = input('get.');
         $sdata = [];
         $machines = [];
@@ -28,7 +36,7 @@ class Machine extends Controller
         if(!empty($data['city_id'])){
             $sdata['city_id'] = $data['city_id'];
         }
-        if(!empty($data['status'])){
+        if(isset($data['status'])){
             if($data['status']==2){
                 $sdata['status'] = ['in','0,1'];
             }
@@ -64,26 +72,24 @@ class Machine extends Controller
         ]);
 
     }
-
+/**
+ * 添加监测点省市联动的实现
+ * @Author   HeberLee
+ * @DateTime 2018-03-11T11:36:28+0800
+ */
     public function add(){
     	$cities = $this->city_obj->getNormalCitiesByParentId();
         return $this->fetch('',[
         	'cities' => $cities,
         ]);
     }
-
-    // public function edit($id){
-    // 	if(intval($id) < 1){
-    // 		$this->error('参数不合法');
-    // 	}
-    // 	$machine = $this->obj->get($id);
-    // 	$machines = $this->obj->getNormalFirstmachines();
-    //     return $this->fetch('',[
-    //     	'machine' => $machine,
-    //     	'machines' => $machines,
-    //     ]);
-    // }
-
+/**
+ * 添加监测点页面的保存功能
+ * @Author   HeberLee
+ * @DateTime 2018-03-11T11:42:10+0800
+ * @param    Request                  $request [description]
+ * @return   [type]                            [description]
+ */
     public function save(Request $request){
         // print_r(request()->post());
         $data = request()->post();
@@ -122,7 +128,12 @@ class Machine extends Controller
             $this->error('更新分类失败');
         }
     }
-
+/**
+ * 在监测点展示页面修改仪器开关状态
+ * @Author   HeberLee
+ * @DateTime 2018-03-11T11:42:48+0800
+ * @return   [type]                   [description]
+ */
     public function status(){
     	$data = input('get.');
     	$validate = validate('machine');

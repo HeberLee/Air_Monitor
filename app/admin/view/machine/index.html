@@ -14,7 +14,7 @@
 			<select name="city_id" class="select cityId">
 				<option value="0">一级城市</option>
 				{volist name="cities" id="vo"}
-				<option value="{$vo.id}" {if condition="$vo.id eq $city_id"}selected="selected"{/if}>{$vo.name}</option>
+				<option value="{$vo.id}" >{$vo.name}</option>
 
 				{/volist}
 			</select>
@@ -30,16 +30,16 @@
 		</span>
 		<span class="select-box inline">
 			<select name="status" class="select">
-				<option value="2" {if condition="2 eq $status"}selected="selected"{/if}>所有</option>
-				<option value="1" {if condition="1 eq $status"}selected="selected"{/if}>正常</option>
-				<option value="0" {if condition="0 eq $status"}selected="selected"{/if}>关闭</option>
+				<option value="2" >所有</option>
+				<option value="1" >正常</option>
+				<option value="0" >关闭</option>
 		
 			</select>
 		</span> 
 		<input type="text" name="name" id="" value="{$name}" placeholder=" 商品名称" style="width:250px" class="input-text">
 		<button name="" id="" class="btn btn-success" type="submit"><i class="Hui-iconfont">&#xe665;</i> 搜索
 		</button>
-	</form>>
+	</form>
 	</div>
 </div>
 

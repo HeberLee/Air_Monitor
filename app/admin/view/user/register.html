@@ -11,6 +11,16 @@
     <script type="text/javascript" src="__STATIC__/index/js/respond.min.js"></script>
     <script type="text/javascript" src="__STATIC__/index/js/jquery-1.11.3.min.js"></script>
 </head>
+<style type="text/css">
+.email-verify {
+    cursor: pointer;
+
+    text-align: center;
+    line-height: 26px;
+    width: 115px;
+    height: 35px;
+}
+</style>
 <body>
     <div class="wrapper">
         <div class="head">
@@ -26,27 +36,30 @@
         </div>
 
         <div class="content">
-            <form>
+            <form action="{:url('user/register')}" method="post">
                 <p class="pass-form-item">
                     <label class="pass-label">用户名</label>
-                    <input type="text" name="userName" class="pass-text-input" placeholder="请设置用户名">
+                    <input type="text" name="username" class="pass-text-input" placeholder="请设置用户名">
                 </p>
                 <p class="pass-form-item">
                     <label class="pass-label">邮箱号</label>
-                    <input type="text" name="email" class="pass-text-input" placeholder="可用于接受团购券账号和密码便于消费">
+                    <input type="text" name="email" class="pass-text-input email-input" placeholder="用于接收警示邮件">
+                    <button type="button" class="email-verify">Click Me!</button>
                 </p>
                 
                 <p class="pass-form-item">
                     <label class="pass-label">密码</label>
-                    <input type="text" name="password" class="pass-text-input" placeholder="请设置登录密码">
+                    <input type="password" name="password" class="pass-text-input" placeholder="请设置登录密码">
                 </p>
                 <p class="pass-form-item">
                     <label class="pass-label">确认密码</label>
-                    <input type="text" name="password" class="pass-text-input" placeholder="请设置登录密码">
+                    <input type="password" name="repassword" class="pass-text-input" placeholder="请设置登录密码">
                 </p>
                 <p class="pass-form-item">
                     <label class="pass-label">验证码</label>
-                    <input type="text" name="verifyCode" class="pass-text-input " placeholder="请输入验证码">
+                    <input type="text" name="verifycode" class="pass-text-input " placeholder="请输入验证码">
+<!--                 <img id="captcha_img" src="{:captcha_src()}" alt="验证码" onclick="refreshVerify()"><a href="javascript:refreshVerify()" >点击刷新</a> -->
+                <img id="verifycode_img" title="点击更换" src="{:captcha_src()}" onclick="this.src='{:captcha_src()}?seed='+Math.random()"> 
                 </p>
                 
                 <p class="pass-form-item">
@@ -62,5 +75,11 @@
             </div>
         </div>
     </div>
+    {load href="__STATIC__/admin/js/common.js" /}
 </body>
 </html>
+<script>
+    var SCOPE = {
+        'email_url':"{:url('admin/user/sendEmail')}",
+    };
+</script>

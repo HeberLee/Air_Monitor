@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:86:"D:\Software\phpstudy\WWW\study\Air_Monitor\public/../app/admin\view\machine\index.html";i:1517747365;s:76:"D:\Software\phpstudy\WWW\study\Air_Monitor\app\admin\view\public\header.html";i:1515491265;s:76:"D:\Software\phpstudy\WWW\study\Air_Monitor\app\admin\view\public\footer.html";i:1514785741;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:86:"D:\Software\phpstudy\WWW\study\Air_Monitor\public/../app/admin\view\machine\index.html";i:1520740032;s:76:"D:\Software\phpstudy\WWW\study\Air_Monitor\app\admin\view\public\header.html";i:1522475539;s:76:"D:\Software\phpstudy\WWW\study\Air_Monitor\app\admin\view\public\footer.html";i:1520832898;}*/ ?>
 <!--包含头部文件-->
 <!DOCTYPE HTML>
 <html>
@@ -38,8 +38,14 @@ body{height:100%;margin:0px;padding:0px}
 #container{height:100%}  
 </style>  
 <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=N2pS7HeyXvC0B5CjjvUwyIBMFGDHv9YX">
+
 //v2.0版本的引用方式：src="http://api.map.baidu.com/api?v=2.0&ak=您的密钥"
+//
+
 </script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="__STATIC__/admin/js/echarts.js"></script>
+
 </head>
 <body>
 <nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 监测仪器 <span class="c-gray en">&gt;</span> 仪器概况 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
@@ -55,7 +61,7 @@ body{height:100%;margin:0px;padding:0px}
 			<select name="city_id" class="select cityId">
 				<option value="0">一级城市</option>
 				<?php if(is_array($cities) || $cities instanceof \think\Collection || $cities instanceof \think\Paginator): $i = 0; $__LIST__ = $cities;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?>
-				<option value="<?php echo $vo['id']; ?>" <?php if($vo['id'] == $city_id): ?>selected="selected"<?php endif; ?>><?php echo $vo['name']; ?></option>
+				<option value="<?php echo $vo['id']; ?>" ><?php echo $vo['name']; ?></option>
 
 				<?php endforeach; endif; else: echo "" ;endif; ?>
 			</select>
@@ -71,16 +77,16 @@ body{height:100%;margin:0px;padding:0px}
 		</span>
 		<span class="select-box inline">
 			<select name="status" class="select">
-				<option value="2" <?php if(2 == $status): ?>selected="selected"<?php endif; ?>>所有</option>
-				<option value="1" <?php if(1 == $status): ?>selected="selected"<?php endif; ?>>正常</option>
-				<option value="0" <?php if(0 == $status): ?>selected="selected"<?php endif; ?>>关闭</option>
+				<option value="2" >所有</option>
+				<option value="1" >正常</option>
+				<option value="0" >关闭</option>
 		
 			</select>
 		</span> 
 		<input type="text" name="name" id="" value="<?php echo $name; ?>" placeholder=" 商品名称" style="width:250px" class="input-text">
 		<button name="" id="" class="btn btn-success" type="submit"><i class="Hui-iconfont">&#xe665;</i> 搜索
 		</button>
-	</form>>
+	</form>
 	</div>
 </div>
 
@@ -126,6 +132,7 @@ body{height:100%;margin:0px;padding:0px}
 <script type="text/javascript" src="__STATIC__/admin/hui/static/h-ui/js/H-ui.js"></script> 
 <script type="text/javascript" src="__STATIC__/admin/hui/static/h-ui.admin/js/H-ui.admin.js"></script>
 <script type="text/javascript" src="__STATIC__/admin/js/common.js"></script>
+<!-- <script type="text/javascript" src="__STATIC__/admin/js/echarts.js"></script> -->
 
 
 <script>

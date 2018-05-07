@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:4:{s:84:"D:\Software\phpstudy\WWW\study\Air_Monitor\public/../app/admin\view\index\index.html";i:1516447259;s:76:"D:\Software\phpstudy\WWW\study\Air_Monitor\app\admin\view\public\header.html";i:1515491265;s:74:"D:\Software\phpstudy\WWW\study\Air_Monitor\app\admin\view\public\menu.html";i:1516446501;s:76:"D:\Software\phpstudy\WWW\study\Air_Monitor\app\admin\view\public\footer.html";i:1514785741;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:4:{s:84:"D:\Software\phpstudy\WWW\study\Air_Monitor\public/../app/admin\view\index\index.html";i:1525269597;s:76:"D:\Software\phpstudy\WWW\study\Air_Monitor\app\admin\view\public\header.html";i:1522475539;s:74:"D:\Software\phpstudy\WWW\study\Air_Monitor\app\admin\view\public\menu.html";i:1522938298;s:76:"D:\Software\phpstudy\WWW\study\Air_Monitor\app\admin\view\public\footer.html";i:1520832898;}*/ ?>
 ﻿<!--包含头部文件-->
 <!DOCTYPE HTML>
 <html>
@@ -38,8 +38,14 @@ body{height:100%;margin:0px;padding:0px}
 #container{height:100%}  
 </style>  
 <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=N2pS7HeyXvC0B5CjjvUwyIBMFGDHv9YX">
+
 //v2.0版本的引用方式：src="http://api.map.baidu.com/api?v=2.0&ak=您的密钥"
+//
+
 </script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="__STATIC__/admin/js/echarts.js"></script>
+
 </head>
 <body>
 <header class="navbar-wrapper">
@@ -48,12 +54,15 @@ body{height:100%;margin:0px;padding:0px}
 			
 			<nav id="Hui-userbar" class="nav navbar-nav navbar-userbar hidden-xs">
 				<ul class="cl">
-					<li>超级管理员</li>
-					<li class="dropDown dropDown_hover"> <a href="#" class="dropDown_A">admin <i class="Hui-iconfont">&#xe6d5;</i></a>
+					<li>你好,</li>
+					<li class="dropDown dropDown_hover"> <a href="#" class="dropDown_A"><?php echo $userInfo['username']; ?><i class="Hui-iconfont">&#xe6d5;</i></a>
 						<ul class="dropDown-menu menu radius box-shadow">
-							<li><a href="#">个人信息</a></li>
-							<li><a href="#">切换账户</a></li>
-							<li><a href="#">退出</a></li>
+							<?php if($userInfo['emailStatus'] == 1): ?>
+							<li><a href="#">邮箱通知：已开启</a></li>
+							<?php else: ?>
+							<li><a href="#">邮箱通知：已关闭</a></li>
+							<?php endif; ?>
+							<li><a href="<?php echo url('user/logout'); ?>">退出</a></li>
 						</ul>
 					</li>
 					<li id="Hui-msg"> <a href="#" title="消息"><span class="badge badge-danger">1</span><i class="Hui-iconfont" style="font-size:18px">&#xe68a;</i></a> </li>
@@ -93,10 +102,10 @@ body{height:100%;margin:0px;padding:0px}
 			</dd>
 		</dl>
 		<dl id="menu-article">
-			<dt><i class="Hui-iconfont">&#xe616;</i> 历史记录<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+			<dt><i class="Hui-iconfont">&#xe616;</i> 数据中心<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
 			<dd>
 				<ul>
-					<li><a _href="" data-title="查看历史记录" href="javascript:void(0)">查看历史记录</a></li>
+					<li><a _href="<?php echo url('chart/index'); ?>" data-title="查看数据" href="javascript:void(0)">查看数据</a></li>
 				</ul>
 			</dd>
 		</dl>
@@ -164,5 +173,6 @@ body{height:100%;margin:0px;padding:0px}
 <script type="text/javascript" src="__STATIC__/admin/hui/static/h-ui/js/H-ui.js"></script> 
 <script type="text/javascript" src="__STATIC__/admin/hui/static/h-ui.admin/js/H-ui.admin.js"></script>
 <script type="text/javascript" src="__STATIC__/admin/js/common.js"></script>
+<!-- <script type="text/javascript" src="__STATIC__/admin/js/echarts.js"></script> -->
 
 

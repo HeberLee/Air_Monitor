@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:86:"D:\Software\phpstudy\WWW\study\Air_Monitor\public/../app/admin\view\user\register.html";i:1525170896;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:86:"D:\Software\phpstudy\WWW\study\Air_Monitor\public/../app/admin\view\user\register.html";i:1527409870;}*/ ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -25,11 +25,6 @@
 <body>
     <div class="wrapper">
         <div class="head">
-            <ul>  
-                <li><a href="index.html"><img src="__STATIC__/index/image/logo.png" alt="logo"></a></li>
-                <li class="divider"></li>
-                <li><a href="index.html"></a></li>
-            </ul>
             <div class="login-link">
                 <span>我已注册，现在就</span>
                 <a href="login.html">登录</a>
@@ -47,6 +42,10 @@
                     <input type="text" name="email" class="pass-text-input email-input" placeholder="用于接收警示邮件">
                     <button type="button" class="email-verify">Click Me!</button>
                 </p>
+                 <p class="pass-form-item">
+                    <label class="pass-label">验证码</label>
+                    <input type="text" name="emailCode" class="pass-text-input" placeholder="请输入邮箱验证码">
+                </p>
                 
                 <p class="pass-form-item">
                     <label class="pass-label">密码</label>
@@ -55,12 +54,6 @@
                 <p class="pass-form-item">
                     <label class="pass-label">确认密码</label>
                     <input type="password" name="repassword" class="pass-text-input" placeholder="请设置登录密码">
-                </p>
-                <p class="pass-form-item">
-                    <label class="pass-label">验证码</label>
-                    <input type="text" name="verifycode" class="pass-text-input " placeholder="请输入验证码">
-<!--                 <img id="captcha_img" src="<?php echo captcha_src(); ?>" alt="验证码" onclick="refreshVerify()"><a href="javascript:refreshVerify()" >点击刷新</a> -->
-                <img id="verifycode_img" title="点击更换" src="<?php echo captcha_src(); ?>" onclick="this.src='<?php echo captcha_src(); ?>?seed='+Math.random()"> 
                 </p>
                 
                 <p class="pass-form-item">

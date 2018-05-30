@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:83:"D:\Software\phpstudy\WWW\study\Air_Monitor\public/../app/admin\view\user\login.html";i:1525153513;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:83:"D:\Software\phpstudy\WWW\study\Air_Monitor\public/../app/admin\view\user\login.html";i:1527409864;}*/ ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,13 +15,8 @@
 <body>
     <div class="wrapper">
         <div class="head">
-            <ul>
-                <li><a href="index.html"><img src="__STATIC__/index/image/logo.png" alt="logo"></a></li>
-                <li class="divider"></li>
-                <li>登录</li>
-            </ul>
             <div class="login-link">
-                <span>还没o2o团购网帐号</span>
+                <span>还没帐号</span>
                 <a href="register.html">注册</a>
             </div>
         </div>

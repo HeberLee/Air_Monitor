@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:4:{s:84:"D:\Software\phpstudy\WWW\study\Air_Monitor\public/../app/admin\view\index\index.html";i:1525269597;s:76:"D:\Software\phpstudy\WWW\study\Air_Monitor\app\admin\view\public\header.html";i:1522475539;s:74:"D:\Software\phpstudy\WWW\study\Air_Monitor\app\admin\view\public\menu.html";i:1522938298;s:76:"D:\Software\phpstudy\WWW\study\Air_Monitor\app\admin\view\public\footer.html";i:1520832898;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:4:{s:84:"D:\Software\phpstudy\WWW\study\Air_Monitor\public/../app/admin\view\index\index.html";i:1527410024;s:76:"D:\Software\phpstudy\WWW\study\Air_Monitor\app\admin\view\public\header.html";i:1522475539;s:74:"D:\Software\phpstudy\WWW\study\Air_Monitor\app\admin\view\public\menu.html";i:1527404704;s:76:"D:\Software\phpstudy\WWW\study\Air_Monitor\app\admin\view\public\footer.html";i:1520832898;}*/ ?>
 ﻿<!--包含头部文件-->
 <!DOCTYPE HTML>
 <html>
@@ -94,10 +94,13 @@ body{height:100%;margin:0px;padding:0px}
 			</dd>
 		</dl>
 		<dl id="menu-article">
-			<dt><i class="Hui-iconfont">&#xe613;</i> 监测仪器<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+			<dt><i class="Hui-iconfont">&#xe613;</i> 用户管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
 			<dd>
 				<ul>
-					<li><a _href="" data-title="仪器概况" href="javascript:void(0)">仪器概况</a></li>
+					<li><a _href="<?php echo url('user/apply'); ?>" data-title="用户审核" href="javascript:void(0)">用户审核</a></li>
+				</ul>
+				<ul>
+					<li><a _href="<?php echo url('user/userList'); ?>" data-title="用户列表" href="javascript:void(0)">用户列表</a></li>
 				</ul>
 			</dd>
 		</dl>
@@ -137,31 +140,7 @@ body{height:100%;margin:0px;padding:0px}
 			<div style="display:none" class="loading"></div>
 			<iframe scrolling="yes" frameborder="0" src="<?php echo url('index/welcome'); ?>"></iframe>
 		</div>
-<!-- 		<div id="container"></div> 
-			<script type="text/javascript"> 
-			var map = new BMap.Map("container");
-			// 创建地图实例  
-			var point = new BMap.Point(118.604, 24.915);
-			// 创建点坐标  
-			map.centerAndZoom(point, 13);
-			map.enableScrollWheelZoom(true); 
-			// 初始化地图，设置中心点坐标和地图级别  
-			var opts = {type: BMAP_NAVIGATION_CONTROL_LARGE};
-			map.addControl(new BMap.NavigationControl(opts));    
-			map.addControl(new BMap.ScaleControl());    
-			map.addControl(new BMap.OverviewMapControl());    
-			map.addControl(new BMap.MapTypeControl());    
-			map.setCurrentCity("泉州");
-			//标注点
-			var marker = new BMap.Marker(point,{fillColor:"green"});        // 创建标注    
-			map.addOverlay(marker); 
-			//点击标注点触发事件
-			marker.addEventListener("mouseover", function(){    
-    		alert("您点击了标注");    
-			}); 
-			marker.setAnimation(BMAP_ANIMATION_BOUNCE);
-			</script>  
-	</div> -->
+
 </section>
 <!--包含菜单文件-->
 <script type="text/javascript" src="__STATIC__/admin/hui/lib/jquery/1.9.1/jquery.min.js"></script>

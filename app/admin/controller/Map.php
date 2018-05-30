@@ -19,26 +19,13 @@ class Map extends Controller
         return $this->fetch();
     }
 
-    public function map_weixin(){
-        $map_data = [];
-
-        $conditions = [
-            'status' => 1,
-        ];
-        $data = $this->machine_obj->getMachinesByConditions($conditions);
-
+    public function markers(){
+        $data = model('machine')->getMachines();
         foreach ($data as $key => $value) {
-            $chart_data[] = [$value['id'],$value['name'],$value['xpoint'],$value['ypoint']];
+            $markersInfo[] = $value; 
         }
-
-        $chart_data = json_encode($chart_data);
-
- 
-        
-         if($chart_data){
-        return $chart_data;            
-        }
-        return 'error';
-
+        return $markersInfo;
     }
+
+    
 }

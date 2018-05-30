@@ -11,6 +11,11 @@ class User extends Controller{
     public function login(){
         if(request()->isPost()){
             $data = input('post.');
+            //校验数据
+            $validate = validate('User');
+            if(!$validate->scene('login')->check($data)){
+                $this->error($validate->getError());
+            }  
             if(!captcha_check($data['verifycode'])){
                 $this->error('验证码错误');
             }
@@ -21,6 +26,10 @@ class User extends Controller{
             if($userData['password'] != md5($data['password'].$userData['code'])){
                 $this->error('密码错误');
             }
+            if($userData['status'] != 2){
+                $this->error('用户权限不足');
+            }
+            
             session('user',$userData,'AM');
             $this->success('登录成功','admin/index/index');
 
@@ -34,10 +43,23 @@ class User extends Controller{
     		// if(!captcha_check($data['verifycode'])){
     		// 	$this->error('验证码错误');
     		// }
+             //校验数据
+            $validate = validate('User');
+            if(!$validate->scene('register')->check($data)){
+                $this->error($validate->getError());
+            }  
     		$judge = model('User')->get(['username'=>$data['username']]);
     		if(!empty($judge)){
     			$this->error('用户名已存在');
     		}
+            $judge = model('User')->get(['email'=>$data['email']]);
+            if(!empty($judge)){
+                $this->error('邮箱已被使用');
+            }
+            $emailCode = session('emailCode','','AM');
+            if(strtoupper($data['emailCode']) !== $emailCode){
+                $this->error('邮箱验证码错误');
+            }
     		if($data['password'] != $data['repassword']){
     			$this->error('前后密码不一致');
     		}
@@ -47,11 +69,11 @@ class User extends Controller{
     			'password' => md5($data['password'].$data['code']),
     			'code' => $data['code'],
     			'email' => $data['email'],
-    			'status' => 1,
     		];
 
     		$id = model('User')->add($userData);
     		if(!empty($id)){
+                session('emailCode',null,'AM');
     			$this->success('注册成功','user/login');
     		}
             else{
@@ -62,6 +84,125 @@ class User extends Controller{
     	else{
     		return $this->fetch();
     	}
+    }
+
+    public function apply(){
+        if(request()->isPost()){
+            $data = input('post.');
+            $stime = strtotime($data['start_time']);
+            $etime = strtotime($data['end_time']);
+            $order['create_time'] = 'desc';
+            $map = [];
+            if($stime && $etime){
+                $map['create_time'] = ['between',[$stime,$etime]];
+            }
+            if($stime && !$etime){
+                $map['create_time'] = ['gt',$stime];    
+            }
+            if(!$stime && $etime){
+                $map['create_time'] = ['lt',$etime];
+            }
+            $status = $data['status'];
+            if($status){
+                $map['status'] = $status;
+            }else{
+                $map['status'] = ['in',['-1','0']];
+            }
+            $name = $data['name'];
+            if($name){
+                $map['username'] = ['like',"%".$name."%"];
+            }
+            $userinfo = model('user')->where($map)->order($order)->select();
+             return $this->fetch('',[
+            'status'=>$status,
+            'start_time'=>$data['start_time'],
+            'end_time'=>$data['end_time'],
+            'name' => $name,
+            'userinfo' => $userinfo
+             ]);
+
+        }
+        else{
+            $map['status'] = ['in',['0','-1']];
+            $order['create_time'] = 'desc';
+            $userinfo = model('user')->where($map)->order($order)->select();
+            return $this->fetch('',[
+                'status'=>'',
+                'start_time'=>'',
+                'end_time'=>'',
+                'name' =>'',
+                'userinfo' => $userinfo
+
+            ]);
+        }
+    }
+
+
+    public function userList(){
+        if(request()->isPost()){
+            $data = input('post.');
+            $stime = strtotime($data['start_time']);
+            $etime = strtotime($data['end_time']);
+            $map=[];
+            $order['create_time'] = 'desc';
+            if($stime && $etime){
+                $map['create_time'] = ['between',[$stime,$etime]];
+            }
+            if($stime && !$etime){
+                $map['create_time'] = ['gt',$stime];    
+            }
+            if(!$stime && $etime){
+                $map['create_time'] = ['lt',$etime];
+            }
+            $status = $data['status'];
+            if($status){
+                $map['status'] = $status;
+            }else{
+                $map['status'] = ['in',['1','2']];
+            }
+            $name = $data['name'];
+            if($name){
+                $map['username'] = ['like',"%".$name."%"];
+            }
+            $userinfo = model('user')->where($map)->order($order)->select();
+             return $this->fetch('',[
+            'status'=>$status,
+            'start_time'=>$data['start_time'],
+            'end_time'=>$data['end_time'],
+            'name' => $name,
+            'userinfo' => $userinfo
+             ]);
+
+        }
+        else{
+            $map['status'] = ['in',['1','2']];
+            $order['create_time'] = 'desc';
+            $userinfo = model('user')->where($map)->order($order)->select();
+            return $this->fetch('',[
+                'status'=>'',
+                'start_time'=>'',
+                'end_time'=>'',
+                'name' =>'',
+                'userinfo' => $userinfo
+
+            ]);
+        }
+    }
+/**
+ * 在用户申请页面修改用户状态
+ * @Author   HeberLee
+ * @DateTime 2018-03-11T11:42:48+0800
+ * @return   [type]                   [description]
+ */
+    public function status(){
+        $data = input('get.');
+        $res = model('user')->update($data,['id' => $data['id']]);
+        if($res){
+            $this->success('更新状态成功');
+        }
+        else{
+            $this->error('更新状态失败');
+        }
     }
 
     public function sendEmail(){
@@ -117,7 +258,7 @@ class User extends Controller{
     　<tr>
     　　<td>
             <div>
-                <span style="font-size: 24px; color: #66c0f4; font-family: Arial, Helvetica, sans-serif; font-weight: bold;">TZ678N</span>
+                <span style="font-size: 24px; color: #66c0f4; font-family: Arial, Helvetica, sans-serif; font-weight: bold;">'.$code.'</span>
             </div>
         </td>
     　</tr>
@@ -139,7 +280,10 @@ class User extends Controller{
 
     </html>';
             $res = \Email::send($data['email'],$title,$content);
-            return 'success'.$res;
+            if($res){
+                session('emailCode',$code,'AM');
+            }
+            return $code;
         }
     }
 

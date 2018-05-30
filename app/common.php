@@ -24,6 +24,40 @@ function status($status){
 	return $str;
 }
 
+/**
+ * 用户审核-待审核和不通过的状态修饰
+ * @Author   HeberLee
+ * @DateTime 2018-05-27T15:00:28+0800
+ * @param    [type]                   $status [description]
+ * @return   [type]                           [description]
+ */
+function applystatus($status){
+	if($status == 0){
+		$str = "<span class='label label-warning radius'>待审核</span>";
+	}
+	else if($status == -1){
+		$str = "<span class='label label-danger radius'>不通过</span>";
+	}
+	return $str;
+}
+
+/**
+ * 用户列表-普通用户和管理员的状态修饰
+ * @Author   HeberLee
+ * @DateTime 2018-05-27T15:00:28+0800
+ * @param    [type]                   $status [description]
+ * @return   [type]                           [description]
+ */
+function liststatus($status){
+	if($status == 1){
+		$str = "<span class='label label-success radius'>普通用户</span>";
+	}
+	else if($status == 2){
+		$str = "<span class='label label-primary radius'>管理员</span>";
+	}
+	return $str;
+}
+
 function doCurl($url,$type=0,$data=[]){
 	$ch = curl_init();
 	curl_setopt($ch,CURLOPT_URL,$url);
@@ -41,22 +75,7 @@ function doCurl($url,$type=0,$data=[]){
 	return $output;
 }
 
-//商户入驻申请
-function bisRegister($status){
-	if($status == 1){
-		$str = "入驻成功";
-	}
-	else if($status == 0){
-		$str = "待审核，审核后平台会发送邮件通知！";
-	}
-	else if($status == -1){
-		$str = "非常抱歉，您提交的材料不符合条件，请重新提交";
-	}
-	else{
-		$str = "抱歉，该申请不存在";
-	}
-	return $str;
-}
+
 
 function pagination($obj){
 	if(!$obj){

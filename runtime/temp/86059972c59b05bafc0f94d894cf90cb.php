@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:84:"D:\Software\phpstudy\WWW\study\Air_Monitor\public/../app/admin\view\chart\index.html";i:1527410435;s:76:"D:\Software\phpstudy\WWW\study\Air_Monitor\app\admin\view\public\header.html";i:1522475539;s:76:"D:\Software\phpstudy\WWW\study\Air_Monitor\app\admin\view\public\footer.html";i:1520832898;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:83:"D:\Software\phpstudy\WWW\study\Air_Monitor\public/../app/admin\view\user\apply.html";i:1527404895;s:76:"D:\Software\phpstudy\WWW\study\Air_Monitor\app\admin\view\public\header.html";i:1522475539;s:76:"D:\Software\phpstudy\WWW\study\Air_Monitor\app\admin\view\public\footer.html";i:1520832898;}*/ ?>
 <!--包含头部文件-->
 <!DOCTYPE HTML>
 <html>
@@ -47,46 +47,63 @@ body{height:100%;margin:0px;padding:0px}
 <script src="__STATIC__/admin/js/echarts.js"></script>
 
 </head>
-
 <body>
-    <style type="text/css">
-    #main{
-     margin:0 auto;
-    }
-    </style>
-    <nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 数据中心 <span class="c-gray en">&gt;</span> 查看数据 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
-    <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span>用户管理<span class="c-gray en">&gt;</span> 用户审核 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+<div class="page-container">
+	
 
-    <div class="cl pd-5 bg-1 bk-gray mt-20"> 
+	<div class="cl pd-5 bg-1 bk-gray mt-20"> 
 	<div class="text-c">
+		<form action="<?php echo url('user/apply'); ?>" method="post">
 
-
-        <span class="select-box inline">
-            <select name="machine_id" class="select chart_machine_id">
-                <option value="0">选择设备</option>
-                <?php if(is_array($machines) || $machines instanceof \think\Collection || $machines instanceof \think\Paginator): $i = 0; $__LIST__ = $machines;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?>
-                <option value="<?php echo $vo['id']; ?>"><?php echo $vo['name']; ?></option>
-                <?php endforeach; endif; else: echo "" ;endif; ?>
-            </select>
-        </span>
- 
+		<span class="select-box inline">
+			<select name="status" class="select">
+				<option value="" >两者</option>
+				<option value="0" <?php if($status == 0): ?>selected="selected"<?php endif; ?>>待审核</option>
+				<option value="-1" <?php if($status == -1): ?>selected="selected"<?php endif; ?>>不通过</option>
+				
+		
+			</select>
+		</span> 
+		<input type="text" name="name" id="" value="<?php echo $name; ?>" placeholder="用户名" style="width:250px" class="input-text">
 		日期范围：
-		<input type="text" name="start_time"  class="input-text start_time" id="countTimestart" onfocus="selecttime(1)" value="" style="width:120px;" >
+		<input type="text" name="start_time"  value="<?php echo $start_time; ?>" class="input-text start_time" id="countTimestart" onfocus="selecttime(1)" value="" style="width:120px;" >
 			-
-		<input type="text" name="end_time"  class="input-text end_time" id="countTimestart" onfocus="selecttime(1)" value=""  style="width:120px;">
+		<input type="text" name="end_time"   value="<?php echo $end_time; ?>" class="input-text end_time" id="countTimestart" onfocus="selecttime(1)" value=""  style="width:120px;">
 
 		<button name="" id="" class="btn btn-success create-chart" type="submit"><i class="Hui-iconfont">&#xe665;</i> 搜索
 		</button>
-
+	</form>
 	</div>
 </div>
-    <div id="main" style="width: 600px;height:400px;"></div>
 
-    <script type="text/javascript">
-        // 基于准备好的dom，初始化echarts实例
-       
-
-    </script>
+	<!--<img style="margin:20px" width="500" height="400" src="<?php echo url('index/index/map'); ?>"/>-->
+	<div class="mt-20">
+		<table class="table table-border table-bordered table-bg table-hover table-sort">
+			<thead>
+				<tr class="text-c">
+					<th width="80">ID</th>
+					<th width="100">用户名</th>
+					<th width="150">申请时间</th>
+					<th width="60">状态</th>
+					<th width="100">操作</th>
+				</tr>
+			</thead>
+			<tbody class="machine">
+				<?php if(is_array($userinfo) || $userinfo instanceof \think\Collection || $userinfo instanceof \think\Paginator): $i = 0; $__LIST__ = $userinfo;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?>
+				<tr class="text-c">
+					<td id="id"><?php echo $vo['id']; ?></td>
+					<td id="username"><?php echo $vo['username']; ?></td>
+					<td id="create_time"><?php echo date("Y-m-d H:i:s",$vo['create_time']); ?></td>
+					<td id="status" class="td-status"><a href="<?php echo url('user/status',['id'=>$vo['id'],'status'=>$vo['status']==1?-1:1]); ?>" title="点击通过"><?php echo applystatus($vo['status']); ?></a></td>
+					<td class="td-manage"><a style="text-decoration:none" class="ml-5" onClick="o2o_del('<?php echo url('user/status',['id'=>$vo['id'],'status'=>'-1']); ?>')" href="javascript:;" title="不通过"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
+				</tr>
+				<?php endforeach; endif; else: echo "" ;endif; ?>
+			</tbody>
+		</table>
+	</div>
+</div>
+<!--包含头部文件-->
 <script type="text/javascript" src="__STATIC__/admin/hui/lib/jquery/1.9.1/jquery.min.js"></script>
 <script type="text/javascript" src="__STATIC__/admin/hui/lib/layer/2.1/layer.js"></script> 
 <script type="text/javascript" src="__STATIC__/admin/hui/lib/My97DatePicker/WdatePicker.js"></script> 
@@ -100,12 +117,11 @@ body{height:100%;margin:0px;padding:0px}
 
 
 <script>
-    var SCOPE = {
-        'city_url':"<?php echo url('api/City/getCitiesByParentId'); ?>",
-        'xypoint_url':"<?php echo url('api/Machine/change'); ?>",
-        'machine_url':"<?php echo url('api/Machine/getMacinesByCityId'); ?>",
-        'chart_url':"<?php echo url('admin/Chart/chart'); ?>",
-    };
+	var SCOPE = {
+		'city_url':"<?php echo url('api/City/getCitiesByParentId'); ?>",
+		'xypoint_url':"<?php echo url('api/Machine/change'); ?>",
+		'machine_url':"<?php echo url('api/Machine/getMacinesByCityId'); ?>",
+	};
 </script>
 </body>
 </html>

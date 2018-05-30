@@ -3,44 +3,121 @@
 <body>
 <nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 地图 <span class="c-gray en">&gt;</span> 监测点分布 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
 
+<style>
 
-<div id="iframe_box" class="Hui-article">
-<!-- 		<div class="show_iframe">
-			<div style="display:none" class="loading"></div>
-			<iframe scrolling="yes" frameborder="0" src="{:url('index/welcome')}"></iframe>
-		</div> -->
-		<div id="container"></div> 
-			<script type="text/javascript"> 
-			var map = new BMap.Map("container");
-			// 创建地图实例  
-			var point = new BMap.Point(118.604, 24.915);
-			// 创建点坐标  
-			map.centerAndZoom(point, 13);
-			map.enableScrollWheelZoom(true); 
-			// 初始化地图，设置中心点坐标和地图级别  
-			var opts = {type: BMAP_NAVIGATION_CONTROL_LARGE};
-			map.addControl(new BMap.NavigationControl(opts));    
-			map.addControl(new BMap.ScaleControl());    
-			map.addControl(new BMap.OverviewMapControl());    
-			map.addControl(new BMap.MapTypeControl());    
-			map.setCurrentCity("泉州");
-			//标注点
-			var marker = new BMap.Marker(point,{fillColor:"green"});        // 创建标注    
-			map.addOverlay(marker); 
-			//点击标注点触发事件
-			marker.addEventListener("mouseover", function(){    
-    		alert("您点击了标注");    
-			}); 
-			marker.setAnimation(BMAP_ANIMATION_BOUNCE);
-			</script>  
-	</div>
+        #allmap
+        {
+            margin-right: 0px;
+            height: 96%;
+            overflow: hidden;
+        }
+        ul li {
+            margin-left: 50px;
+        }
+</style>
+
+            <div id="allmap" style="width: 100%; height: 100%; float: left;" class="baidu-maps">
+
+</body>
+<script type="text/javascript">
+    // 百度地图API功能
+    var map = new BMap.Map("allmap");    // 创建Map实例
+    map.centerAndZoom(new BMap.Point(118.614, 24.825), 18);  // 初始化地图,设置中心点坐标和地图级别
+    map.addControl(new BMap.MapTypeControl());   //添加地图类型控件
+    map.setCurrentCity("北京");          // 设置地图显示的城市 此项是必须设置的
+    map.enableScrollWheelZoom(true);     //开启鼠标滚轮缩放
+    map.addControl(new BMap.NavigationControl());
+</script>
 <!--包含头部文件-->
 {include file="public/footer" /}
 <script>
 	var SCOPE = {
 		'city_url':"{:url('api/City/getCitiesByParentId')}",
 		'xypoint_url':"{:url('api/Machine/change')}",
+		'map_url':"{:url('map/markers')}",
 	};
+
+
+    $(function () {
+        initMarker("");
+
+    })
+    //单击单个苗圃事件
+    function LoadPartial(id, systemid) {
+        initMarker(id);
+    }
+    
+    //加载标注点
+    function initMarker(id) {
+        $.ajax({
+            type: "POST",
+            url: SCOPE.map_url,
+            dataType: "json",
+            async: false,
+            data: {},
+            success: function (data) {
+            	console.log(data);
+                map.clearOverlays();
+                var i = 0;
+                var points = [];
+                for (var item in data) {
+                    (function (x) {
+                        //创建标注
+                        var pt = new BMap.Point(data[item].xpoint, data[item].ypoint);
+                        points[i] = pt;
+                        var marker = new BMap.Marker(pt);
+                        map.addOverlay(marker);
+                        var label = new BMap.Label(data[item].name, { offset: new BMap.Size(30, -10) });
+                        marker.setLabel(label);
+                        label.setStyle({
+                            color: "White",
+                            fontSize: "14px",
+                            backgroundColor: "#5CACEE",
+                            border: "0"
+                        });
+                        //创建信息窗口
+                        var opts = {
+                            width: 400,     // 信息窗口宽度
+                            height: 120,     // 信息窗口高度
+                            title: "<strong style=\"font-size:16px;font-weight:bold\">" + data[item].name + "</strong>", // 信息窗口标题
+                            enableMessage: true, //设置允许信息窗发送短息
+                            message: ""
+                        }
+                        var showInfo = "地址：" + data[item].city_path + "<br/>" + "纬度：" + data[item].ypoint + "<br/>经度：" + data[item].xpoint;
+                        var infoWindow = new BMap.InfoWindow(showInfo, opts);  // 创建信息窗口对象
+                        marker.addEventListener("click", function (e) {
+                            //map.centerAndZoom(pt, 12);
+                            marker.openInfoWindow(infoWindow, pt); //开启信息窗口
+                        });
+                        map.addOverlay(marker);
+                        i++;
+                    })(i);
+                }
+
+                if (id == "") {
+                    map.setViewport(points);
+                } else {
+                    map.setViewport(points);
+                    setTimeout(function () {
+                        map.setZoom(18);
+                    }, 100);  //0.1秒后放大到14级
+                }
+
+            },
+            error: function (error) {
+                alert("加载失败，请检查网络或其他原因");
+            }
+        });
+    }
+
+    //清除覆盖物
+    function cleardd() {
+        for (var i = 0; i < overlays.length; i++) {
+            map.removeOverlay(overlays[i]);
+        }
+        overlays.length = 0;
+    }
+
 </script>
 </body>
 </html>
